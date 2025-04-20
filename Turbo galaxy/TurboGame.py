@@ -1,147 +1,187 @@
 import pygame
-import sys
-import os
 import random
+import sys
 
-# Inicialización
+# Inicializar pygame y mixer
 pygame.init()
+pygame.mixer.init()
 
-# Pantalla
-WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+# Dimensiones
+ANCHO, ALTO = 800, 600
+pantalla = pygame.display.set_mode((ANCHO, ALTO))
 pygame.display.set_caption("Turbo Galaxy")
-clock = pygame.time.Clock()
 
 # Colores
-WHITE = (255, 255, 255)
-YELLOW = (255, 255, 100)
+BLANCO = (255, 255, 255)
+NEGRO = (0, 0, 0)
+TURQUESA = (64, 224, 208)
 
 # Cargar imágenes
-bg_path = os.path.join("img", "background.png")
-car_path = os.path.join("img", "cars.png")
+bg = pygame.image.load("img/background.png").convert()
+player_img = pygame.image.load("img/cars.png").convert_alpha()
+coco_img = pygame.image.load("img/coco.png").convert_alpha()
+heart_img = pygame.image.load("img/heart.png").convert_alpha()
 
-background = pygame.image.load(bg_path).convert()
-background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+# Escalado de imágenes
+player_img = pygame.transform.scale(player_img, (60, 60))
+coco_img = pygame.transform.scale(coco_img, (40, 40))
+heart_img = pygame.transform.scale(heart_img, (30, 30))
 
-# Cargar nave con transparencia
-car_image = pygame.image.load(car_path).convert_alpha()
-car_image = pygame.transform.scale(car_image, (60, 60))
+# Música
+try:
+    pygame.mixer.music.load("assets/music.mp3")
+    pygame.mixer.music.set_volume(1.0)
+    pygame.mixer.music.play(-1)
+except:
+    print("No se pudo cargar la música.")
 
-# Fuentes
-pygame.font.init()
-title_font = pygame.font.SysFont("Orbitron", 70)
-button_font = pygame.font.SysFont("Orbitron", 40)
+# Reloj
+clock = pygame.time.Clock()
+FPS = 60
 
-# Función para mostrar texto centrado
-def draw_text(text, font, color, surface, x, y):
-    text_obj = font.render(text, True, color)
-    text_rect = text_obj.get_rect(center=(x, y))
-    surface.blit(text_obj, text_rect)
+# Jugador
+player_rect = player_img.get_rect()
+player_rect.center = (ANCHO // 2, ALTO - 80)
+velocidad_jugador = 5
 
-# Colisión circular
-def circle_collision(rect1, rect2):
-    center1 = rect1.center
-    center2 = rect2.center
-    distance = ((center1[0] - center2[0])**2 + (center1[1] - center2[1])**2) ** 0.5
-    radius1 = rect1.width // 2
-    radius2 = rect2.width // 2
-    return distance < radius1 + radius2
+# Cocos
+cocos = []
+for _ in range(5):
+    coco_rect = coco_img.get_rect()
+    coco_rect.x = random.randint(0, ANCHO - coco_rect.width)
+    coco_rect.y = random.randint(-600, -40)
+    cocos.append(coco_rect)
 
-# Menú principal
-def main_menu():
-    title_y_offset = 0
-    direction = 1
-    button_rect = pygame.Rect(WIDTH//2 - 100, HEIGHT//2 + 100, 200, 60)
+# HUD
+vidas = 3
+puntuacion = 0
+font = pygame.font.SysFont(None, 36)
+big_font = pygame.font.SysFont("Arial", 60)
+
+# Funciones de ayuda
+def mostrar_texto(texto, x, y, color=BLANCO, fuente=font):
+    render = fuente.render(texto, True, color)
+    pantalla.blit(render, (x, y))
+
+def mostrar_vidas():
+    for i in range(vidas):
+        pantalla.blit(heart_img, (10 + i * 35, 10))
+
+def reiniciar_juego():
+    global vidas, puntuacion, player_rect, cocos
+    vidas = 3
+    puntuacion = 0
+    player_rect.center = (ANCHO // 2, ALTO - 80)
+    cocos.clear()
+    for _ in range(5):
+        coco_rect = coco_img.get_rect()
+        coco_rect.x = random.randint(0, ANCHO - coco_rect.width)
+        coco_rect.y = random.randint(-600, -40)
+        cocos.append(coco_rect)
+
+# Pantalla de Inicio
+def pantalla_inicio():
+    boton_rect = pygame.Rect(ANCHO//2 - 100, ALTO//2 + 50, 200, 60)
+    portada = pygame.image.load("img/background.png").convert()
 
     while True:
-        screen.blit(background, (0, 0))
+        pantalla.blit(portada, (0, 0))  # Fondo playa espacial
 
-        # Animación del título
-        title_y_offset += direction * 0.5
-        if title_y_offset > 10 or title_y_offset < -10:
-            direction *= -1
+        # Título
+        mostrar_texto("🌴 TURBO GALAXY 🚀", ANCHO//2 - 200, ALTO//3 - 60, BLANCO, big_font)
 
-        draw_text("TURBO GALAXY", title_font, YELLOW, screen, WIDTH // 2, HEIGHT // 2 - 100 + title_y_offset)
+        # Mouse y botón
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_click = pygame.mouse.get_pressed()
 
-        # Botón interactivo
-        mouse = pygame.mouse.get_pos()
-        if button_rect.collidepoint(mouse):
-            pygame.draw.rect(screen, (200, 200, 50), button_rect)
+        if boton_rect.collidepoint(mouse_pos):
+            pygame.draw.rect(pantalla, (0, 180, 180), boton_rect)
+            if mouse_click[0]:
+                pygame.time.delay(200)
+                return
         else:
-            pygame.draw.rect(screen, (100, 100, 255), button_rect)
+            pygame.draw.rect(pantalla, TURQUESA, boton_rect)
 
-        draw_text("COMENZAR", button_font, WHITE, screen, button_rect.centerx, button_rect.centery)
+        mostrar_texto("Comenzar", boton_rect.x + 45, boton_rect.y + 15, NEGRO)
+
+        mostrar_texto("Presiona ESC para salir", ANCHO//2 - 160, ALTO - 60, BLANCO)
+
+        pygame.display.flip()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if button_rect.collidepoint(event.pos):
-                    return
-
-        pygame.display.flip()
-        clock.tick(60)
-
-# Juego principal
+# Bucle principal del juego
 def game_loop():
-    angle = 0
-    speed = 0
-    car_rect = car_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-    obstacles = []
-
-    def create_obstacle():
-        obstacle = pygame.Rect(random.randint(0, WIDTH-50), -50, 50, 50)
-        obstacles.append(obstacle)
-
+    global vidas, puntuacion
     running = True
     while running:
-        screen.blit(background, (0, 0))
-
-        # Generar obstáculos aleatorios
-        if random.randint(1, 100) > 98:
-            create_obstacle()
-
-        for obstacle in obstacles[:]:
-            obstacle.y += 5
-            if obstacle.y > HEIGHT:
-                obstacles.remove(obstacle)
-            pygame.draw.rect(screen, (255, 0, 0), obstacle)
-
-        # Movimiento de la nave
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            angle += 5
-        if keys[pygame.K_RIGHT]:
-            angle -= 5
-        if keys[pygame.K_UP]:
-            speed = 5
-        else:
-            speed = 0
-
-        direction = pygame.math.Vector2(0, -1).rotate(angle)
-        car_rect.centerx += direction.x * speed
-        car_rect.centery += direction.y * speed
-
-        # Dibujar la nave rotada
-        rotated_image = pygame.transform.rotate(car_image, angle)
-        rotated_rect = rotated_image.get_rect(center=car_rect.center)
-        screen.blit(rotated_image, rotated_rect)
-
-        # Detección de colisión
-        for obstacle in obstacles:
-            if circle_collision(rotated_rect, obstacle):
-                print("¡Colisión! GAME OVER")
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 running = False
 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] and player_rect.left > 0:
+            player_rect.x -= velocidad_jugador
+        if keys[pygame.K_RIGHT] and player_rect.right < ANCHO:
+            player_rect.x += velocidad_jugador
+
+        pantalla.blit(bg, (0, 0))
+        pantalla.blit(player_img, player_rect)
+
+        for coco in cocos:
+            coco.y += 5
+            pantalla.blit(coco_img, coco)
+
+            if coco.top > ALTO:
+                coco.x = random.randint(0, ANCHO - coco.width)
+                coco.y = random.randint(-100, -40)
+                puntuacion += 1
+
+            if player_rect.colliderect(coco):
+                coco.x = random.randint(0, ANCHO - coco.width)
+                coco.y = random.randint(-100, -40)
+                vidas -= 1
+
+        mostrar_texto(f"Puntos: {puntuacion}", ANCHO - 150, 10)
+        mostrar_vidas()
+
+        if vidas <= 0:
+            mostrar_texto("GAME OVER - Presiona R para reiniciar o Q para salir", 100, ALTO // 2)
+            pygame.display.flip()
+            esperando = True
+            while esperando:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_r:
+                            reiniciar_juego()
+                            esperando = False
+                        elif event.key == pygame.K_q:
+                            pygame.quit()
+                            sys.exit()
+
         pygame.display.flip()
-        clock.tick(60)
 
     pygame.quit()
-    sys.exit()
 
-# Punto de entrada del juego
+# Iniciar el juego
 if __name__ == "__main__":
-    main_menu()
+    pantalla_inicio()
     game_loop()
+
+
+
+
+
+
+
