@@ -11,3 +11,5 @@ Repositorio donde almaceno todos mis proyectos personales de programacion. aqui 
 ## Lista de proyectos realizados:
 1. Bot de envio de correos maximos - Realizado en el lenguaje de programacion python.
 2. Biblioteca virtual -Realizada en el lenguaje de programacion php
+3. Videojuego Turbo Galaxy -Realizado en el lenguaje de programacion python.
+4. landing page -Realizada con html,css y javaScript
