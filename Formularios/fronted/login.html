@@ -1,0 +1,41 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <h2>Iniciar Sesión</h2>
+  <form id="loginForm">
+    <input type="email" id="loginEmail" placeholder="Correo electrónico" required />
+    <input type="password" id="loginPassword" placeholder="Contraseña" required />
+    <button type="submit">Iniciar sesión</button>
+  </form>
+
+  <div id="loginMessage"></div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      const res = await fetch("http://localhost:3001/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      document.getElementById("loginMessage").textContent = data.message;
+    });
+  </script>
+</body>
+</html>

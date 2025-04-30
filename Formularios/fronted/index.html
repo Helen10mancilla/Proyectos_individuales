@@ -1,0 +1,59 @@
+8<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario Oscuro</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function Registro() {
+      const [nombre, setNombre] = useState('');
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [mensaje, setMensaje] = useState('');
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          const res = await fetch('http://localhost:3001/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre, email, password }),
+          });
+
+          const data = await res.json();
+          setMensaje(data.mensaje || 'Algo salió mal');
+        } catch (err) {
+          console.error(err);
+          setMensaje('Error de conexión 😢');
+        }
+      };
+
+      return (
+        <div className="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-sm">
+          <h2 className="text-2xl mb-4 text-center font-bold">Registro</h2>
+          <form onSubmit={handleSubmit}>
+            <input type="text" placeholder="Nombre" value={nombre} onChange={e => setNombre(e.target.value)} className="w-full mb-3 p-2 rounded text-black" required />
+            <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full mb-3 p-2 rounded text-black" required />
+            <input type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} className="w-full mb-3 p-2 rounded text-black" required />
+            <button type="submit" className="bg-blue-600 hover:bg-blue-700 w-full py-2 rounded">Registrar</button>
+          </form>
+          {mensaje && <p className="mt-4 text-center text-green-400">{mensaje}</p>}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<Registro />);
+  </script>
+</body>
+</html>
