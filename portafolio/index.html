@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portafolio de Helen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white font-sans">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function Navbar() {
+        return (
+          <nav className="fixed top-0 left-0 right-0 bg-gray-800 shadow z-50 p-4 flex justify-between items-center">
+            <span className="text-xl font-bold text-teal-400">Helen</span>
+            <div className="space-x-4 text-sm">
+              <a href="#sobre-mi" className="text-gray-300 hover:text-white">Sobre mí</a>
+              <a href="#proyectos" className="text-gray-300 hover:text-white">Proyectos</a>
+              <a href="#habilidades" className="text-gray-300 hover:text-white">Habilidades</a>
+              <a href="#contacto" className="text-gray-300 hover:text-white">Contacto</a>
+            </div>
+          </nav>
+        );
+      }
+
+      function Footer() {
+        return (
+          <footer className="mt-20 p-6 bg-gray-800 text-center text-gray-400">
+            <div className="mb-2"> Helen | © 2025</div>
+            <div className="flex justify-center space-x-4 text-xl">
+              <a href="https://github.com/Helen10mancilla/Proyectos_individuales.git" target="_blank" className="hover:text-white">
+                <i className="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/helen-orejuela-mancilla-36a97a222" target="_blank" className="hover:text-white">
+                <i className="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </footer>
+        );
+      }
+
+      function App() {
+        return (
+          <>
+            <Navbar />
+            <main className="pt-24 p-8 max-w-5xl mx-auto space-y-20">
+              {/* Hero */}
+              <section className="text-center fade-in">
+                <h1 className="text-5xl font-bold mb-4">Hola, soy <span className="text-teal-400">Helen</span></h1>
+                <p className="text-lg text-gray-300">
+                  Desarrolladora web apasionada por construir experiencias digitales con estilo, funcionalidad y alma.
+                </p>
+              </section>
+
+              {/* Sobre mí */}
+              <section id="sobre-mi" className="fade-in">
+                <h2 className="text-2xl font-semibold text-teal-300 mb-4">Sobre mí</h2>
+                <p className="text-gray-300">
+                  Soy Helen, una desarrolladora creativa con amor por el diseño limpio y funcional.
+                  Me gusta transformar ideas en sitios reales, accesibles y bien hechos.
+                </p>
+              </section>
+
+             {/* Proyectos */}
+<section id="proyectos" className="fade-in">
+    <h2 className="text-2xl font-semibold text-teal-300 mb-4">Proyectos</h2>
+    <div className="grid gap-6 md:grid-cols-2">
+      <a
+        href="https://github.com/Helen10mancilla/Proyectos_individuales.git"
+        target="_blank"
+        className="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition-all block"
+      >
+        <h3 className="text-xl font-semibold text-white">Bot de envio de correos automaticos</h3>
+        <p className="text-gray-400">Este proyecto es un script en Python que permite enviar correos electrónicos automáticamente usando `smtplib` y `email.message`.</p>
+      </a>
+  
+      <a
+        href="https://github.com/Helen10mancilla/Proyectos_individuales.git"
+        target="_blank"
+        className="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition-all block"
+      >
+        <h3 className="text-xl font-semibold text-white">Biblioteca virtual</h3>
+        <p className="text-gray-400">Este proyecto consiste en una plataforma web que permite leer y subir libros, conectándose a una base de datos MySQL para almacenar y gestionar la información. Fue desarrollada en PHP y puede ser utilizada como base para sistemas de gestión bibliotecaria.</p>
+      </a>
+      <a
+      href="https://github.com/Helen10mancilla/Proyectos_individuales.git"
+      target="_blank"
+      className="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition-all block"
+    >
+      <h3 className="text-xl font-semibold text-white">Videojuego turbo galaxy</h3>
+      <p className="text-gray-400">¡Bienvenido a Turbo Galaxy!  
+        Un videojuego retro-tropical de carreras espaciales donde esquivas cocos en una galaxia playera interdimensional.  
+        Desarrollado con amor en Python y Pygame.</p>
+    </a>
+    <a
+    href="https://github.com/Helen10mancilla/Proyectos_individuales.git"
+    target="_blank"
+    className="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition-all block"
+  >
+    <h3 className="text-xl font-semibold text-white">pagina basada en el videojuego turbo galaxy</h3>
+    <p className="text-gray-400">Esta landing page sirve como punto de entrada para que los jugadores descarguen el juego y se enteren de sus características. ¡Es la puerta hacia una aventura espacial llena de obstáculos tropicales y carreras a toda velocidad! </p>
+  </a>
+    </div>
+  </section>
+  
+
+              {/* Habilidades */}
+              <section id="habilidades" className="fade-in">
+                <h2 className="text-2xl font-semibold text-teal-300 mb-6 text-center">Habilidades</h2>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6 justify-items-center">
+                  {[
+                    { icon: "fab fa-html5", name: "HTML" },
+                    { icon: "fab fa-css3-alt", name: "CSS" },
+                    { icon: "fab fa-js", name: "JavaScript" },
+                    { icon: "fab fa-react", name: "React" },
+                    { icon: "fab fa-python", name: "Python" },
+                    { icon: "fas fa-database", name: "MySQL" },
+                  ].map((skill, index) => (
+                    <div key={index} className="flex flex-col items-center group transition-transform hover:scale-110">
+                      <i className={`${skill.icon} text-4xl text-teal-400`}></i>
+                      <span className="mt-2 text-sm text-gray-300 group-hover:text-white">{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Contacto */}
+              <section id="contacto" className="text-center fade-in">
+                <h2 className="text-2xl font-semibold text-teal-300 mb-4">Contacto</h2>
+                <form
+  action="https://formspree.io/f/mldbjnpd"
+  method="POST"
+  className="space-y-4 max-w-md mx-auto text-left"
+>
+  <input
+    type="text"
+    name="nombre"
+    placeholder="Tu nombre"
+    required
+    className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600"
+  />
+  <input
+    type="email"
+    name="email"
+    placeholder="Tu email"
+    required
+    className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600"
+  />
+  <textarea
+    name="mensaje"
+    placeholder="Tu mensaje"
+    rows="4"
+    required
+    className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600"
+  ></textarea>
+  <button
+    type="submit"
+    className="bg-teal-500 hover:bg-teal-600 text-white py-2 px-4 rounded"
+  >
+    Enviar mensaje
+  </button>
+</form>
+
+                  
+              </section>
+            </main>
+            <Footer />
+          </>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>
