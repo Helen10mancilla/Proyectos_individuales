@@ -1,0 +1,45 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Negocio - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Panel de Administración</h1>
+
+        <!-- Sección: Añadir Producto -->
+        <section class="mb-5">
+            <h3>Añadir Producto</h3>
+            <form method="POST" action="/agregar_producto">
+                <input type="text" name="nombre" placeholder="Nombre del producto" class="form-control mb-2">
+                <input type="number" name="precio" placeholder="Precio" class="form-control mb-2">
+                <input type="number" name="stock" placeholder="Cantidad en stock" class="form-control mb-2">
+                <button type="submit" class="btn btn-primary">Guardar Producto</button>
+            </form>
+        </section>
+
+        <!-- Sección: Registrar Venta -->
+        <section class="mb-5">
+            <h3>Registrar Venta</h3>
+            <form method="POST" action="/registrar_venta">
+                <input type="text" name="producto" placeholder="Producto vendido" class="form-control mb-2">
+                <input type="number" name="cantidad" placeholder="Cantidad" class="form-control mb-2">
+                <button type="submit" class="btn btn-success">Registrar Venta</button>
+            </form>
+        </section>
+
+        <!-- Sección: Ver Ganancias -->
+        <section>
+            <h3>Ganancias del Mes</h3>
+            <p>Total generado: <strong>{{ ganancias }}</strong></p>
+            <form method="POST" action="/calcular_ganancias">
+                <button type="submit" class="btn btn-warning">Calcular Ganancias</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
+

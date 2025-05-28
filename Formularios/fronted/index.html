@@ -1,4 +1,4 @@
-8<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -30,6 +30,11 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nombre, email, password }),
           });
+          if (res.ok) {
+            setTimeout(() => {
+              window.location.href = 'login.html';
+            }, 1500); // da tiempo de ver el mensaje
+          }
 
           const data = await res.json();
           setMensaje(data.mensaje || 'Algo salió mal');

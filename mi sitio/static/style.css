@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+body.inicio {
+  background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+}
+
+body.registro {
+  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+}
+
+.contenedor, .form-container {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+h1, h2 {
+  margin-bottom: 20px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+}
+
+button, .volver, .boton {
+  background: #00C9A7;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+}
+/* ----------------- ESTILOS PARA EL DASHBOARD ----------------- */
+.dashboard-container {
+    background: rgba(0, 0, 0, 0.5); /* Cajita semitransparente tipo glass */
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 50px auto;
+    box-shadow: 0 0 15px rgba(0, 255, 200, 0.3);
+    backdrop-filter: blur(8px);
+    color: white;
+    text-align: center;
+}
+
+.dashboard-container h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #00ffd5;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.dashboard-container p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.dashboard-container .acciones a {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 20px;
+    background: #00c9ff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.dashboard-container .acciones a:hover {
+    background: #00b4d8;
+}

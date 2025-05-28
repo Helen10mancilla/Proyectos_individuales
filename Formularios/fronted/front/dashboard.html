@@ -2,100 +2,69 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Crear Negocio</title>
   <style>
     body {
       background-color: #121212;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    input, textarea, button {
+      margin: 1rem 0;
+      padding: 0.7rem;
+      width: 300px;
+      border: none;
+      border-radius: 8px;
+    }
+    button {
+      background-color: #00c9a7;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
-<body class="text-white">
+<body>
+  <h1>Registra tu negocio</h1>
+  <form id="negocioForm">
+    <input type="text" id="nombre" placeholder="Nombre del negocio" required />
+    <textarea id="descripcion" placeholder="Descripción del negocio" required></textarea>
+    <button type="submit">Guardar negocio</button>
+  </form>
 
-  <div class="container mx-auto py-10">
-    <h1 class="text-4xl font-semibold text-center">Bienvenido a tu Dashboard</h1>
-    <div class="mt-6 space-y-6">
-
-      <!-- Negocio Form -->
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h2 class="text-xl mb-4">Registrar tu Negocio</h2>
-        <form id="formNegocio">
-          <input type="text" id="nombreNegocio" class="p-2 w-full rounded mb-4" placeholder="Nombre del negocio" required />
-          <textarea id="descripcionNegocio" class="p-2 w-full rounded mb-4" placeholder="Descripción del negocio" required></textarea>
-          <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Registrar Negocio</button>
-        </form>
-      </div>
-
-      <!-- Producto Form -->
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h2 class="text-xl mb-4">Agregar Producto</h2>
-        <form id="formProducto">
-          <input type="text" id="nombreProducto" class="p-2 w-full rounded mb-4" placeholder="Nombre del producto" required />
-          <input type="number" id="precioProducto" class="p-2 w-full rounded mb-4" placeholder="Precio" required />
-          <input type="number" id="cantidadProducto" class="p-2 w-full rounded mb-4" placeholder="Cantidad" required />
-          <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Agregar Producto</button>
-        </form>
-      </div>
-
-      <!-- Generar Factura -->
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h2 class="text-xl mb-4">Generar Mini Factura</h2>
-        <button id="generarFactura" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">Generar Factura PDF</button>
-      </div>
-
-      <!-- Ventas -->
-      <div class="bg-gray-800 p-6 rounded-lg">
-        <h2 class="text-xl mb-4">Ventas</h2>
-        <div id="ventas">
-          <!-- Aquí aparecerían las ventas -->
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-    // Código JavaScript para manejar los formularios y la generación de facturas
-    document.getElementById("formNegocio").addEventListener("submit", async (e) => {
+    const form = document.getElementById("negocioForm");
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const nombreNegocio = document.getElementById("nombreNegocio").value;
-      const descripcionNegocio = document.getElementById("descripcionNegocio").value;
+      const nombre = document.getElementById("nombre").value;
+      const descripcion = document.getElementById("descripcion").value;
+      const usuario_id = localStorage.getItem("usuario_id");
 
-      const res = await fetch("http://localhost:3001/registrarNegocio", {
+      if (!usuario_id) {
+        alert("No se encontró el usuario. Inicia sesión.");
+        return window.location.href = "login.html";
+      }
+
+      const res = await fetch("http://localhost:3001/crear-negocio", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: 1, nombre_negocio: nombreNegocio, descripcion_negocio: descripcionNegocio }),
+        body: JSON.stringify({ nombre, descripcion, usuario_id }),
       });
 
       const data = await res.json();
-      alert(data.message);
-    });
-
-    document.getElementById("formProducto").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const nombreProducto = document.getElementById("nombreProducto").value;
-      const precioProducto = document.getElementById("precioProducto").value;
-      const cantidadProducto = document.getElementById("cantidadProducto").value;
-
-      const res = await fetch("http://localhost:3001/agregarProducto", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ negocio_id: 1, nombre_producto: nombreProducto, precio_producto: precioProducto, cantidad_producto: cantidadProducto }),
-      });
-
-      const data = await res.json();
-      alert(data.message);
-    });
-
-    document.getElementById("generarFactura").addEventListener("click", () => {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.text("Mini Factura", 20, 20);
-      doc.text("Producto: Nombre del producto", 20, 30);
-      doc.save("factura.pdf");
+      if (data.success) {
+        alert("Negocio guardado correctamente");
+        // Aquí luego puedes redirigir a productos.html o dashboard principal
+      } else {
+        alert("Error al guardar negocio");
+      }
     });
   </script>
 </body>
 </html>
+

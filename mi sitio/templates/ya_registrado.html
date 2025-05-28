@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ya Registrado</title>
+  <style>
+    body {
+      background: linear-gradient(45deg, #ff4e50, #f9d423);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 3rem;
+      color: white;
+    }
+    .card {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 2rem;
+      border-radius: 20px;
+      display: inline-block;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background-color: white;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+    a.button:hover {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>¡Hola de nuevo!</h1>
+    <p>El correo <strong>{{ correo }}</strong> ya está registrado.</p>
+    <p>¿Ya tienes cuenta? Inicia sesión aquí:</p>
+    <a href="/login" class="button">Iniciar Sesión</a>
+  </div>
+</body>
+</html>

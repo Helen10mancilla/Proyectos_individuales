@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="registro">
+  <div class="form-container">
+    <h2>Formulario de Registro</h2>
+    <form method="POST">
+      <input type="text" name="nombre" placeholder="Tu nombre" required>
+      <input type="email" name="correo" placeholder="Tu correo" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+
+      <button type="submit">Registrarse</button>
+    </form>
+    <a href="/" class="volver">Volver al inicio</a>
+  </div>
+  {% if error %}
+  <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+</body>
+</html>

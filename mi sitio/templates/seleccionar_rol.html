@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Seleccionar Rol</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 2rem;
+      color: white;
+    }
+    .rol-form {
+      background: rgba(0,0,0,0.4);
+      padding: 2rem;
+      border-radius: 15px;
+      display: inline-block;
+    }
+    button {
+      margin: 1rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      color: #333;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Selecciona tu rol</h1>
+  <form method="POST" class="rol-form">
+    <input type="hidden" name="correo" value="{{ correo }}">
+    <button type="submit" name="rol" value="usuario"> Usuario</button>
+    <button type="submit" name="rol" value="administrador"> Administrador</button>
+  </form>
+</body>
+</html>
