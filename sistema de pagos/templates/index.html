@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Pagos</title>
+    <style>
+        body { font-family: Arial; background: #f4f4f4; padding: 20px; }
+        table { width: 60%; margin: auto; border-collapse: collapse; }
+        th, td { padding: 10px; text-align: center; border: 1px solid #ccc; }
+        .pagado { background-color: #c8e6c9; }
+        .pendiente { background-color: #ffcdd2; }
+        a { padding: 5px 10px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Lista de Pagos</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Acción</th>
+        </tr>
+        {% for pago in pagos %}
+        <tr class="{{ pago[3] }}">
+            <td>{{ pago[0] }}</td>
+            <td>{{ pago[1] }}</td>
+            <td>${{ pago[2] }}</td>
+            <td>{{ pago[3] }}</td>
+            <td>
+                {% if pago[3] == "pendiente" %}
+                    <a href="/pagar/{{ pago[0] }}">Marcar como pagado</a>
+                {% else %}
+                    ✔️
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
