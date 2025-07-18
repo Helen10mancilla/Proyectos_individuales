@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bot de Fotos</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f2f2f2; padding: 2em; }
+        h1 { color: #333; }
+        form { margin: 20px auto; padding: 20px; background-color: white; border-radius: 10px; width: 80%; max-width: 600px; }
+        img { max-width: 200px; margin: 10px; border-radius: 5px; box-shadow: 0 0 8px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+    <h1>📸 Bot Selector de Fotos</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <p>Sube tus fotos:</p>
+        <input type="file" name="imagenes" multiple accept="image/*" required><br><br>
+
+        <label for="cantidad">Cantidad a seleccionar:</label><br>
+        <input type="number" name="cantidad" min="1" max="100" value="5"><br><br>
+
+        <label>Calidad deseada:</label><br>
+        <input type="radio" name="calidad" value="alta" checked> Alta
+        <input type="radio" name="calidad" value="baja"> Baja<br><br>
+
+        <button type="submit">Procesar Fotos</button>
+    </form>
+
+    {% if imagenes %}
+        <h2>✅ Fotos seleccionadas:</h2>
+        {% for imagen in imagenes %}
+            <img src="{{ url_for('mostrar_imagen', filename=imagen) }}" alt="foto">
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
