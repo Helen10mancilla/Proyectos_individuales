@@ -19,7 +19,7 @@ Este es un bot de escritorio hecho en Python que selecciona automáticamente las
 
 ###  Opción 1: Ejecutar el `.exe` (sin necesidad de Python)
 
-1. Abre el archivo `bot_fotos.exe`
+1. Abre el archivo `app.exe`
 2. Se abrirá una ventana
 3. Selecciona una carpeta con imágenes
 4. Ingresa cuántas fotos quieres seleccionar
