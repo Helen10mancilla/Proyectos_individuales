@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import OffersSection from "./components/OffersSection";
 import "./App.css";
 
