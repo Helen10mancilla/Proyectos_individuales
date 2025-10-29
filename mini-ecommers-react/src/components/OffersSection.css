@@ -1,0 +1,107 @@
+.offers-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+}
+
+.offers-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.offers-header h2 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.offers-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.offer-card {
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.offer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.offer-card h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.discount-badge {
+  background: #ff4757;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 1rem 0;
+  animation: pulse 2s infinite;
+}
+
+.offer-description {
+  color: #444;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.coupon-btn {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.coupon-btn:hover {
+  background: #34495e;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .offers-section {
+    padding: 2rem 1rem;
+  }
+  
+  .offers-header h2 {
+    font-size: 2rem;
+  }
+  
+  .offers-grid {
+    gap: 1rem;
+  }
+}
