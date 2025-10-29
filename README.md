@@ -14,3 +14,4 @@ Repositorio donde almaceno todos mis proyectos personales de programacion. aqui 
 2. Biblioteca virtual -Realizada en el lenguaje de programacion php
 3. Videojuego Turbo Galaxy -Realizado en el lenguaje de programacion python.
 4. landing page -Realizada con html,css y javaScript
+5. mini-ecommerse -Realizada con react 
