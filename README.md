@@ -7,6 +7,7 @@ Repositorio donde almaceno todos mis proyectos personales de programacion. aqui 
 - html
 - css
 - javaScript
+- React
 - conexion a base de datos mysql
 ## Lista de proyectos realizados:
 1. Bot de envio de correos maximos - Realizado en el lenguaje de programacion python.
